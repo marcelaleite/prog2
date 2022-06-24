@@ -3,20 +3,7 @@
 require_once("classes/PessoaFisica.class.php");
 require_once("classes/ContaCorrente.class.php");
 
-function exibir_como_select($chave,$dados){
-    $str = "<option value=0>Selecione</option>";
-    foreach($dados as $linha){
-       $str .= "<option value='".$linha[$chave[0]]."'>".$linha[$chave[1]]."</option>";
-    }
-    return $str;
-}
 
-
-function lista_pessoa($id){
-    $pessoa = new PessoaFisica("","","","");
-    $lista = $pessoa->buscar($id);
-    return exibir_como_select(array('pf_id','pf_nome'),$lista);
-}
 
 if($_POST["acao"] == "salvar"){
     $numero = isset($_POST['cc-numero'])?$_POST['cc-numero']:0;
@@ -25,16 +12,17 @@ if($_POST["acao"] == "salvar"){
     $pf = isset($_POST['cc-pf'])?$_POST['cc-pf']:0;
     // criar conta corrente
 
-    $conta = new ContaCorrente($numero,$saldo,$pf,$dt);
-    // chamar função inserir
-    if($conta->insere())
-        echo "Cadastro Efetuado com sucesso";
-    else
-        echo "Erro ao efetuar cadastro";
-
-    
-
-
+    try{
+        $conta = new ContaCorrente($numero,$saldo,$pf,$dt);
+        // chamar função inserir
+        if($conta->insere())
+            echo "Cadastro Efetuado com sucesso";
+        else
+            echo "Erro ao efetuar cadastro";
+    }catch(Exception $e){
+        echo "<h1> Erro ao cadastrar conta.</h1>
+             <br> Erro: ".$e->getMessage();
+    }
 }
 
 

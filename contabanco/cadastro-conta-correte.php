@@ -17,7 +17,7 @@
         <label for="cc-pf">Pessoa Física:</label>
         <select name="cc-pf">
             <?php
-                require_once("controle-conta-corrente.php");
+                require_once("utils.php");
                 echo lista_pessoa(0);
             ?>
         </select>

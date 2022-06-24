@@ -1,14 +1,23 @@
 <?php
+require_once "../classes/Database.class.php";
 /**
  * Super classe Forma que irá definir aquilo que é comum para toda
  * as formas (Classe Pai)
  */
-class Forma{
+class Forma extends Database{
     private $id;
     private $cor;
     private $tabuleiro;
-    private static $contador = 0; // compartilhar entre todos os objetos
+    public static $contador = 0; // compartilhar entre todos os objetos
 
+    /**
+     * Construtor da classe Forma
+     * @access public
+     * @return void
+     * @param int $id Informar o id do banco do quadrado..
+     * @param String $cor cor do quadrado
+     * @param int $tab id do tabuleiro
+     */
     public function __construct($id,$cor,$tab){
         $this->setCor($cor);
         $this->setTabuleiro($tab);
